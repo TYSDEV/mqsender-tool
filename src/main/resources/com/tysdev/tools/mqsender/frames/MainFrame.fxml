@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="693.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.tysdev.tools.mqsender.frames.MainFrameController">
+  <bottom>
+    <Label fx:id="lblStatus" prefWidth="600.0" text="Ready" />
+  </bottom>
+  <center>
+    <BorderPane prefHeight="200.0" prefWidth="200.0">
+      <center>
+        <TextArea fx:id="txtMessage" prefWidth="200.0" promptText="Message" wrapText="false" />
+      </center>
+      <top>
+        <AnchorPane prefHeight="123.0" prefWidth="693.0">
+          <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Broker IP:" />
+            <TextField id="host" fx:id="txtBrokerHost" layoutX="78.0" layoutY="11.0" prefWidth="136.0" text="localhost" />
+            <Label layoutX="227.0" layoutY="14.0" text="port:" />
+            <TextField fx:id="txtBrokerPort" layoutX="259.0" layoutY="11.0" prefWidth="80.0" text="61616" />
+            <Pane fx:id="paneWebSphereMq" layoutX="339.0" layoutY="2.0" prefHeight="58.0" prefWidth="347.0" visible="false">
+              <children>
+                <Label layoutX="14.0" layoutY="12.0" text="Queue manager:" />
+                <TextField fx:id="txtQueueManager" layoutX="124.0" layoutY="10.0" prefWidth="215.0" text="QM_TEST" />
+                <Label layoutX="14.0" layoutY="39.0" prefWidth="110.0" text="Channel:" />
+                <TextField fx:id="txtChannel" layoutX="124.0" layoutY="36.0" prefWidth="215.0" text="SYSTEM.DEF.SVRCONN" />
+              </children>
+            </Pane>
+            <Button fx:id="sendButton" layoutX="449.0" layoutY="72.0" mnemonicParsing="false" onAction="#sendButton_onClick" prefHeight="38.000099999997474" prefWidth="230.0" text="SEND">
+              <font>
+                <Font name="System Bold" size="13.0" />
+              </font>
+            </Button>
+            <Label layoutX="353.0" layoutY="72.0" text="Send times:" />
+            <TextField fx:id="txtSendTimes" alignment="CENTER" layoutX="353.0" layoutY="88.0" prefWidth="78.0" text="1" />
+            <RadioButton id="radioActiveMQ" fx:id="radioActiveMq" layoutX="14.0" layoutY="44.0" mnemonicParsing="false" onAction="#radioActiveMq_onClick" selected="true" text="ActiveMQ" />
+            <RadioButton fx:id="radioWebSphereMq" layoutX="124.0" layoutY="43.0" mnemonicParsing="false" onAction="#radioWebSphereMq_onClick" text="WebSphere MQ" />
+            <Label layoutX="14.0" layoutY="72.0" text="Queue:" />
+            <TextField fx:id="txtQueue" layoutX="14.0" layoutY="88.0" prefWidth="325.0" />
+          </children>
+        </AnchorPane>
+      </top>
+    </BorderPane>
+  </center>
+  <top>
+    <MenuBar>
+      <menus>
+        <Menu mnemonicParsing="false" text="Program">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#menuProgram_about_onClick" text="About..." />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#menuProgram_exit_onClick" text="Close" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
+</BorderPane>

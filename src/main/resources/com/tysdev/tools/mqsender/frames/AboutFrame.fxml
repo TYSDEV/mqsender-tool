@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane alignment="TOP_LEFT" disable="false" gridLinesVisible="false" hgap="0.0" prefHeight="91.0" prefWidth="278.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.tysdev.tools.mqsender.frames.AboutFrameController">
+  <children>
+    <Label text="MQ Sender" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <font>
+        <Font name="System Bold" size="14.0" />
+      </font>
+    </Label>
+    <Label text="Tyryshkin Alexander (С) 2013-2016" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+    <Label text="#project.version#" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Button id="buttonOK_click" fx:id="buttonOk" mnemonicParsing="false" onAction="#okButton_onClick" text="OK" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="104.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="154.0" />
+  </columnConstraints>
+  <padding>
+    <Insets left="10.0" right="10.0" />
+  </padding>
+  <rowConstraints>
+    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>
