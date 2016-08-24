@@ -5,6 +5,7 @@ import com.ibm.mq.jms.*;
 
 import javax.jms.JMSException;
 import javax.jms.Session;
+import java.util.Map;
 
 
 /**
@@ -13,12 +14,20 @@ import javax.jms.Session;
  * @author Tyryshkin Alexander
  */
 public class WebSphereMqProvider implements JmsProvider {
+    public static final String PARAM_MANAGER = "manager";
+    public static final String PARAM_CHANNEL = "channel";
+
     private MQQueueConnection connection = null;
     private MQQueueSession    session    = null;
 
 
     @Override
-    public void connect(String host, String port, String queueManager, String channel) throws JMSException {
+    public void connect(Map<String, Object> params) throws JMSException {
+        String host         = (String) params.get(PARAM_HOST);
+        String port         = (String) params.get(PARAM_PORT);
+        String queueManager = (String) params.get(PARAM_MANAGER);
+        String channel      = (String) params.get(PARAM_CHANNEL);
+
         try {
             MQQueueConnectionFactory cf = new MQQueueConnectionFactory();
             cf.setHostName(host);

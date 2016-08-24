@@ -3,6 +3,7 @@ package com.tysdev.tools.mqsender.jmsproviders;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.util.Map;
 
 
 /**
@@ -16,9 +17,11 @@ public class ActiveMqProvider implements JmsProvider {
 
 
     @Override
-    public void connect(String host, String port, String queueManager, String channel)
-            throws JMSException {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://" + host + ":" + port + "/");
+    public void connect(Map<String, Object> params) throws JMSException {
+        String host = (String) params.get(PARAM_HOST);
+        String port = (String) params.get(PARAM_PORT);
+
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://" + host + ":" + port);
         connectionFactory.setCopyMessageOnSend(false);
 
         connection = connectionFactory.createConnection();

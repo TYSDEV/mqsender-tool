@@ -4,10 +4,13 @@ import com.tysdev.tools.mqsender.jmsproviders.ActiveMqProvider;
 import com.tysdev.tools.mqsender.jmsproviders.JmsProvider;
 import com.tysdev.tools.mqsender.jmsproviders.WebSphereMqProvider;
 
+import javax.jms.JMSException;
+import java.util.Map;
+
 
 /**
  * JMS Providers
- * TODO : Refactor
+ *
  * @author Tyryshkin Alexander
  */
 public class JmsProviderFactory {
@@ -17,18 +20,20 @@ public class JmsProviderFactory {
 
     /**
      * Creates concrete JMS provider
-     *
-     * @param provider
-     * @return
-     * @throws IllegalArgumentException
      */
-    public static JmsProvider getJmsProvider(int provider) throws IllegalArgumentException {
-        switch (provider) {
+    public static JmsProvider createJmsProvider(int providerId, Map<String, Object> params) throws IllegalArgumentException, JMSException {
+        JmsProvider provider;
+        switch (providerId) {
             case JMS_PROVIDER_ACTIVEMQ:
-                return new ActiveMqProvider();
+                provider = new ActiveMqProvider();
+                break;
             case JMS_PROVIDER_WEBSPHEREMQ:
-                return new WebSphereMqProvider();
+                provider = new WebSphereMqProvider();
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
+        provider.connect(params);
+        return provider;
     }
 }

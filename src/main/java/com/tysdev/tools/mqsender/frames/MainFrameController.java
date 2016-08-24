@@ -2,6 +2,7 @@ package com.tysdev.tools.mqsender.frames;
 
 import com.tysdev.tools.mqsender.JmsProviderFactory;
 import com.tysdev.tools.mqsender.jmsproviders.JmsProvider;
+import com.tysdev.tools.mqsender.jmsproviders.WebSphereMqProvider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -52,27 +55,28 @@ public class MainFrameController implements Initializable {
     @FXML
     private void sendButton_onClick(ActionEvent event) {
         try {
-            JmsProvider jmsProvider;
-            String      message = txtMessage.getText();
-            String      queue   = txtQueue.getText();
+            String message = txtMessage.getText();
+            String queue   = txtQueue.getText();
 
             if (queue == null || queue.trim().length() == 0) {
                 throw new IllegalArgumentException("Queue is not specified!");
             }
 
             // Establish JMS connection:
-            if (radioActiveMq.isSelected()) {
-                jmsProvider = JmsProviderFactory.getJmsProvider(JmsProviderFactory.JMS_PROVIDER_ACTIVEMQ);
-                jmsProvider.connect(txtBrokerHost.getText(), txtBrokerPort.getText(), null, null);
-            }
-            else {
-                jmsProvider = JmsProviderFactory.getJmsProvider(JmsProviderFactory.JMS_PROVIDER_WEBSPHEREMQ);
-                jmsProvider.connect(txtBrokerHost.getText(), txtBrokerPort.getText(), txtQueueManager.getText(), txtChannel.getText());
-            }
+            Map<String, Object> params = new HashMap<>();
+            params.put(JmsProvider.PARAM_HOST, txtBrokerHost.getText());
+            params.put(JmsProvider.PARAM_PORT, txtBrokerPort.getText());
 
-            int repeat = getSendTimes();
+            int providerId = JmsProviderFactory.JMS_PROVIDER_ACTIVEMQ;
+            if (radioWebSphereMq.isSelected()) {
+                providerId = JmsProviderFactory.JMS_PROVIDER_WEBSPHEREMQ;
+                params.put(WebSphereMqProvider.PARAM_MANAGER, txtQueueManager.getText());
+                params.put(WebSphereMqProvider.PARAM_CHANNEL, txtChannel.getText());
+            }
+            JmsProvider jmsProvider = JmsProviderFactory.createJmsProvider(providerId, params);
 
             // Send messages:
+            int repeat = getSendTimes();
             for (int i = 0; i < repeat; i++) {
                 jmsProvider.sendTextMessage(queue, message);
             }

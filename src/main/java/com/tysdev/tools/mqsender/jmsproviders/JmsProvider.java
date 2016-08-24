@@ -1,6 +1,7 @@
 package com.tysdev.tools.mqsender.jmsproviders;
 
 import javax.jms.JMSException;
+import java.util.Map;
 
 
 /**
@@ -9,15 +10,16 @@ import javax.jms.JMSException;
  * @author Tyryshkin Alexander
  */
 public interface JmsProvider {
+
+    String PARAM_HOST = "host";
+    String PARAM_PORT = "port";
+
     /**
      * Establish the connection
      *
-     * @param host
-     * @param port
-     * @param queueManager
-     * @param channel
+     * @param params - Connection params
      */
-    void connect(String host, String port, String queueManager, String channel) throws JMSException; // TODO : Refactor
+    void connect(Map<String, Object> params) throws JMSException;
 
 
     /**
